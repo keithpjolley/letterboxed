@@ -1,2 +1,8 @@
 # letterboxed
-solve the ny times letterboxed puzzle
+Solve the ny times letterboxed puzzle.
+
+## usage
+
+```
+$ 
+
