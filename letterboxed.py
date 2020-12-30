@@ -35,6 +35,7 @@ def find_graphs(me, letters, maxlength, words):
     sletters = set(letters)
     letters_len = len(sletters)
     letters = ''.join(sorted(sletters))
+    # Create a graph with all words that end/start with the same char tip to tail.
     G = nx.DiGraph()
     [G.add_edge(u,v) for u,v in permutations(words, 2) if u[-1] == v[0]]
     for u,v in permutations(G.nodes, 2):
@@ -52,13 +53,13 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(
             description='Somebody do something.',
             epilog='Ouput:\n'
-                    '    Number of words in the path (shorter is "better").\n'
-                    '    Total number of charcters in the path.\n'
-                    '    Number of repeated (extra) characters (smaller is "bettter").\n'
-                    '    Given character set.\n'
-                    '    Path as "word1->word2..."',
+                '    Number of words in the path (shorter is "better").\n'
+                '    Total number of charcters in the path.\n'
+                '    Number of repeated (extra) characters (smaller is "bettter").\n'
+                '    Given character set.\n'
+                '    Path as "word1->word2..."',
             formatter_class=argparse.RawDescriptionHelpFormatter,
-            )
+        )
     p.add_argument('--verbose', action='store_true', help='Verbose')
     p.add_argument('--maxlength', type=int, default=3, help='Show chains at least this long.')
     p.add_argument('letters', help='Allowed letters as one list: "abcdefg.."')
@@ -66,5 +67,3 @@ if __name__ == "__main__":
     word_list = '/usr/share/dict/words'
     good_words = legal_words(me, args.letters, word_list)
     find_graphs(me, args.letters, args.maxlength, good_words)
-
-
