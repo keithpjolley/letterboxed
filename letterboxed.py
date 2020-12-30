@@ -45,7 +45,7 @@ def find_graphs(me, letters, maxlength, words):
                     path_len = len(path)
                     char_len = len(''.join(path))
                     extra_chars = char_len - letters_len
-                    print(f'{path_len}:{char_len}:{extra_chars}:{letters}: {"->".join(path)}')
+                    print(f'{path_len}:{char_len}:{extra_chars} {"->".join(path)}')
 
 
 if __name__ == "__main__":
@@ -54,9 +54,8 @@ if __name__ == "__main__":
             description='Somebody do something.',
             epilog='Ouput:\n'
                 '    Number of words in the path (shorter is "better").\n'
-                '    Total number of charcters in the path.\n'
+                '    Total number of characters in the path.\n'
                 '    Number of repeated (extra) characters (smaller is "bettter").\n'
-                '    Given character set.\n'
                 '    Path as "word1->word2..."',
             formatter_class=argparse.RawDescriptionHelpFormatter,
         )
