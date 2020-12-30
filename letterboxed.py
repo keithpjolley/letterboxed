@@ -61,7 +61,7 @@ if __name__ == "__main__":
                 '    Path as "word1->word2..."',
             formatter_class=argparse.RawDescriptionHelpFormatter,
         )
-    p.add_argument('--verbose', action='store_true', help='Verbose')
+    #p.add_argument('--verbose', action='store_true', help='Verbose')
     p.add_argument('--maxlength', type=int, default=3, help='Show chains at least this long.')
     p.add_argument('letters', help='Allowed letters as one list: "abcdefg.."')
     args = p.parse_args()
