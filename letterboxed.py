@@ -11,21 +11,23 @@ from itertools import permutations
 from pathlib import Path
 
 def legal_words(me, letters, word_list):
-    ''' "Illegal" regexes. If any match then the word is not usable.
-         `tooshort` is less than 3 characters.
-         `badletters` is any letter not on the puzzle board.
-         `badsequence` means a repeated letter on the same side of the board.
-        Eliminating `badletters` before `badsequence` keeps the sequence regex sane.
-        'sides' = 'abcdefhijklm' -- a string of 3 letters * 4
     '''
-    letters = letters.lower() # Using only lc eliminates many "illegal" words from /usr/.../dict.
+        Create "illegal" regexes. If any words match then it is not usable.
+           `tooshort` is a word less than 3 characters.
+           `badletters` is a word with any letter not on the puzzle board.
+           `badsequence` means a repeated letter on the same side of the board.
+        Eliminating `badletters` before `badsequence` keeps the sequence regex sane.
+        'sides' = 'abcdefhijklm' -- a string of 3 letters * 4 sides.
+    '''
+    letters = letters.lower() # Using only lc eliminates many "illegal" words from /usr/.../dict, e.g. "Mario".
     sides = [letters[i:i+3] for i in range(0, len(letters), 3)]
     tooshort = r'^.{1,2}$'
     badletters = '[^' + ''.join(set(''.join(sides))) + ']'
     badsequences = '|'.join(['[' + side + '](?=[' + side + '])' for side in sides])
     regex = re.compile('|'.join([tooshort, badletters, badsequences]))
     return [word for word in Path(word_list).read_text().split()
-            if not regex.search(word)]
+                    if not regex.search(word)]
+
 
 def find_graphs(me, letters, maxlength, words):
     ''' Create a graph of all combos of words where the last letter of the first
